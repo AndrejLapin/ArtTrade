@@ -24,6 +24,7 @@
     function Check_name_exists($db_connection, $name)
     {
         $sql_request = 'SELECT User_Name FROM user WHERE User_Name = "'.$name.'";';
+        echo '<p>'.$sql_request.'</p>';
         $result = $db_connection->query($sql_request);
         return $result->num_rows > 0; // if rows are returned, that means that name already exists
 
@@ -42,6 +43,7 @@
     {
         $sql_request = 'INSERT INTO user (User_Name, Hashed_Password, Currency_Balance, Owned_Art_Amount) 
         VALUES ("'.$name.'", "'.$hashed_password.'", '.$starting_currency.', '.(0).');';
+        echo '<p>'.$sql_request.'</p>';
 
         if($db_connection->query($sql_request) == TRUE)
         {

@@ -18,14 +18,16 @@ $db_connection = Connect_to_project_db();
 
 if(isset($_POST["name"]))
 {
+    echo '<p> name is set </p>';
     if(empty($_POST["name"]))
     {
+        echo '<p> name is empty </p>';
         $name_error = "Name cant be empty";
     }
     else
     {
         $name = $_POST["name"];
-
+        echo '<p> name is not empty </p>';
         if(Check_name_exists($db_connection, $name)) // if rows are returned, that means that name already exists
         {
             $name_error = "Name already taken";
@@ -33,9 +35,14 @@ if(isset($_POST["name"]))
         }
     }
 }
+else
+{
+    echo '<p> name is not set </p>';
+}
 
 if(isset($_POST["password"]))
 {
+    echo '<p> napassword is set </p>';
     if(empty($_POST["password"]))
     {
         $password_error = "Password cant be empty";
@@ -44,6 +51,10 @@ if(isset($_POST["password"]))
     {
         $hashed_password = hash('sha256', $name.$_POST["password"]);
     }
+}
+else
+{
+    echo '<p> napassword is not set </p>';
 }
 
 if(isset($_POST["password_confirm"]))
@@ -55,12 +66,12 @@ if(isset($_POST["password_confirm"]))
     else
     {
         $hashed_password_confirm = hash('sha256', $name.$_POST["password_confirm"]);
-        //echo '<p> Hash1 = '.$hashed_password.' </p>';
-        //echo '<p> Hash2 = '.$hashed_password_confirm.' </p>';
+        echo '<p> Hash1 = '.$hashed_password.' </p>';
+        echo '<p> Hash2 = '.$hashed_password_confirm.' </p>';
 
         if($hashed_password == $hashed_password_confirm)
         {
-            //echo '<p> Passwords match!!! :D </p>';
+            echo '<p> Passwords match!!! :D </p>';
             if(!$name_taken)
             {
                 Register_new_user($db_connection, $name, $hashed_password, starting_currency);
