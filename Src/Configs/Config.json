@@ -1,0 +1,8 @@
+{
+    "Server_configs":{
+        "server_name":"localhost",
+        "username":"root",
+        "password":"",
+        "dbName":"arttradedb"
+    }
+}

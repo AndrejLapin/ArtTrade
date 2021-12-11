@@ -6,10 +6,29 @@
 <body>
 
 <?php
+const starting_currency = 100;
 // $password and $password_confirm variables are unused and it should stay this way
 $name = $name_error = $password = $password_error = $password_confirm = $password_confirm_error = "";
 $hashed_password = $hashed_password_confirm = "";
 $name_taken = false;
+
+$config_file = file_get_contents('Configs/Config.json');
+$config_object = json_decode($config_file);
+
+// connecting to mysql database
+$db_connection = new mysqli(
+    $config_object->Server_configs->server_name,
+    $config_object->Server_configs->username,
+    $config_object->Server_configs->password,
+    $config_object->Server_configs->dbName
+);
+
+if($db_connection->connect_error)
+{
+    die("Connection failed: ".$db_connection->connect_error);
+}
+
+//echo '<p>'.$config_object->Server_configs->dbName.'</p>'; // test
 
 if(isset($_POST["name"]))
 {
@@ -21,9 +40,25 @@ if(isset($_POST["name"]))
     else
     {
         $name = $_POST["name"];
-        // TODO: do name check from DB, if exists show error
-        //$name_error = "Name already taken";
-        //$name_taken = true;
+
+        // checking if the name already exists
+        $sql_request = 'SELECT User_Name FROM user WHERE User_Name = "'.$name.'";';
+        $result = $db_connection->query($sql_request);
+        if($result->num_rows > 0) // if rows are returned, that means that name already exists
+        {
+            $name_error = "Name already taken";
+            $name_taken = true;
+        }
+
+        // code below prints out all Usaer_Name's from sql request
+        //echo '<p>'.$result->num_rows.'</p>';
+        // if ($result->num_rows > 0)
+        // {
+        //     while($row = $result->fetch_assoc()) 
+        //     {
+        //         echo '<p>'.$row['User_Name'].'</p>';
+        //     }
+        // }
     }
 }
 
@@ -64,6 +99,17 @@ if(isset($_POST["password_confirm"]))
             if(!$name_taken)
             {
                 //TODO: add to DB
+                $sql_request = 'INSERT INTO user (User_Name, Hashed_Password, Currency_Balance, Owned_Art_Amount) 
+                VALUES ("'.$name.'", "'.$hashed_password.'", '.starting_currency.', '.(0).');';
+                //echo '<p>'.$sql_request.'</p>'; // test
+                if($db_connection->query($sql_request) == TRUE)
+                {
+                    echo '<p> You have succesfully registered</p>';
+                }
+                else
+                {
+                    echo '<p> Could not register </p>';
+                }
             }
         }
         else
