@@ -11,7 +11,8 @@ require("functions.php");
 </head>
 <body>
 
-<h1>Main Page</h1>
+<!--<h1>Main Page</h1>-->
+<p>Menu</p>
 <?php
 
 if(!isset($_SESSION['Current_user_ID'])) $_SESSION['Current_user_ID'] = 0;
@@ -26,28 +27,29 @@ if($_SESSION['Current_user_ID'] != 0)
 <?php 
     // log in and register buttons get enabled
     if(!isset($_SESSION['Current_user_ID']) || $_SESSION['Current_user_ID'] == 0)
-    echo '<input type="submit" value="Register" name="AccountSubmit"> 
-    <input type="submit" value="Login" name="AccountSubmit">';
+    echo '  <input type="submit" value="Register" name="MenuAction"> 
+            <input type="submit" value="Login" name="MenuAction">';
 
     // log out button gets enabled
     if(isset($_SESSION['Current_user_ID']) && $_SESSION['Current_user_ID'] != 0)
-    echo '<input type="submit" value="LogOut" name="AccountSubmit">'; ?>
+    echo '  <input type="submit" value="LogOut" name="MenuAction">
+            <input type="submit" value="Upload Art" name="MenuAction">'; ?>
 </form>
 
 <?php
 
-if(isset($_POST['AccountSubmit']))
+if(isset($_POST['MenuAction']))
 {
-    $accountPage = $_POST['AccountSubmit'];
-    if($accountPage == 'Register' && (!isset($_SESSION['Current_user_ID']) || $_SESSION['Current_user_ID'] == 0))
+    $menu_action = $_POST['MenuAction'];
+    if($menu_action == 'Register' && (!isset($_SESSION['Current_user_ID']) || $_SESSION['Current_user_ID'] == 0))
     {
         include('pages/Register.php');
     }
-    else if($accountPage == 'Login' && (!isset($_SESSION['Current_user_ID']) || $_SESSION['Current_user_ID'] == 0))
+    else if($menu_action == 'Login' && (!isset($_SESSION['Current_user_ID']) || $_SESSION['Current_user_ID'] == 0))
     {
         include('pages/Login.php');
     }
-    else if($accountPage == 'LogOut')
+    else if($menu_action == 'LogOut')
     {
         $_SESSION['Current_user_ID'] = 0;
         $_SESSION['User_Name'] = '';
@@ -56,6 +58,10 @@ if(isset($_POST['AccountSubmit']))
 
         //header("Location: http://localhost/ArtTrade/Src/");
         header("Refresh:0");
+    }
+    else if($menu_action == 'Upload Art' && isset($_SESSION['Current_user_ID']) && $_SESSION['Current_user_ID'] != 0)
+    {
+        include('pages/UploadArt.php');
     }
     else
     {
