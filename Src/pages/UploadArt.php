@@ -8,7 +8,7 @@
 <?php
 //require("functions.php");
 $name = $name_error = "";
-$for_sale = false;
+$for_sale = true;
 $art_price = 0;
 
 // $name_not_empty = false;
@@ -45,17 +45,18 @@ $art_price = 0;
   Artwork Name: <input type="text" name="name" value="<?php echo $name;?>">
   <span class="error"> <?php echo $name_error;?></span>
   <br><br>
-  For Sale: <input type="checkbox" name="for_sale" value="<?php echo $for_sale;?>" onclick="Enable_price_input_field()">
+  For Sale: <input type="checkbox" name="for_sale" value="<?php echo $for_sale;?>" id="for_sale_check" onclick="Enable_price_input_field()" checked>
   Price: <input type="number" name="art_price" value="<?php echo $art_price;?>" min="0" id="price_input_field">
   <br><br>
   <input type="submit" name="Upload" value="Upload">  
 </form>
 
 <script>
-    fucntion Enable_price_input_field()
+    function Enable_price_input_field()
     {
-        document.getElementById("price_input_field").disabled = true;
+        document.getElementById("price_input_field").disabled = !document.getElementById("for_sale_check").checked;
     }
+
 </script>
 
 </body>
