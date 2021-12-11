@@ -5,9 +5,8 @@
 </head>
 <body>
 
-<h1>This is a Heading</h1>
+<h1>Main Page</h1>
 
-<p>This is a paragraph.What</p>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
     <input type="submit" value="Register" name="AccountSubmit"> 
     <input type="submit" value="Login" name="AccountSubmit">
@@ -19,11 +18,11 @@ if(isset($_POST['AccountSubmit']))
     $accountPage = $_POST['AccountSubmit'];
     if($accountPage == 'Register')
     {
-        include('files/Register.php');
+        include('pages/Register.php');
     }
     else if($accountPage == 'Login')
     {
-        include('files/Login.php');
+        include('pages/Login.php');
     }
     else
     {
