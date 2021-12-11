@@ -67,7 +67,7 @@ if(isset($_POST['MenuAction']))
     {
         echo '<p>ERROR!</p>';
     }
-}
+}//a
 
 ?>
 
