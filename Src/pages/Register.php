@@ -6,7 +6,7 @@
 <body>
 
 <?php
-require("functions.php");
+//require("functions.php");
 
 const starting_currency = 100;
 // $password and $password_confirm variables are unused and it should stay this way
@@ -57,12 +57,14 @@ if(isset($_POST["password_confirm"]))
         $hashed_password_confirm = hash('sha256', $name.$_POST["password_confirm"]);
         //echo '<p> Hash1 = '.$hashed_password.' </p>';
         //echo '<p> Hash2 = '.$hashed_password_confirm.' </p>';
+
         if($hashed_password == $hashed_password_confirm)
         {
             //echo '<p> Passwords match!!! :D </p>';
             if(!$name_taken)
             {
                 Register_new_user($db_connection, $name, $hashed_password, starting_currency);
+                Login_user($db_connection, $name, $_POST["password"]);
             }
         }
         else

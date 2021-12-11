@@ -1,4 +1,3 @@
-
 <?php
     function Connect_to_project_db()
     {
@@ -52,5 +51,22 @@
         {
             echo '<p> Could not register </p>';
         }    
+    }
+
+    function Login_user($db_connection, $name, $password)
+    {
+        $sql_request = 'SELECT Hashed_Password, User_ID FROM user WHERE User_Name = "'.$name.'";';
+        $result = $db_connection->query($sql_request);
+        if($result->num_rows > 0)
+        {
+            $row = $result->fetch_assoc(); // getting first result
+            if(hash('sha256', $name.$password) == $row['Hashed_Password'])
+            {
+                $_SESSION['Current_user_ID'] = $row['User_ID'];
+                header("Location: http://localhost/ArtTrade/Src/");
+            }
+            // else password doesnt match
+        }
+        // else couldnt find user by $name
     }
 ?>

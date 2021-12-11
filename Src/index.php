@@ -1,3 +1,9 @@
+<?php
+session_start();
+require("functions.php");
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,23 +12,54 @@
 <body>
 
 <h1>Main Page</h1>
+<?php
+echo '<p> Current user: '.$_SESSION['Current_user_ID'] .'</p>';
+?>
 
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-    <input type="submit" value="Register" name="AccountSubmit"> 
-    <input type="submit" value="Login" name="AccountSubmit">
+<form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method="post">
+<?php if(!isset($_SESSION['Current_user_ID']) || $_SESSION['Current_user_ID'] == 0)
+echo '<input type="submit" value="Register" name="AccountSubmit"> 
+    <input type="submit" value="Login" name="AccountSubmit">'; ?>
+</form>
+
+<form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method="post">
+<?php if(isset($_SESSION['Current_user_ID']) && $_SESSION['Current_user_ID'] != 0)
+echo '<input type="submit" value="LogOut" name="AccountSubmit">'; ?>
 </form>
 
 <?php
+
+// if($_SESSION['Current_user_ID'] == 0)
+// {
+//     echo '
+// <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);? >" method="post">
+//     <input type="submit" value="Register" name="AccountSubmit"> 
+//     <input type="submit" value="Login" name="AccountSubmit">
+// </form>';
+// }
+// else
+// {
+//     echo '
+// <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);? >" method="post">
+//     <input type="submit" value="LogOut" name="AccountSubmit"> 
+// </form>';
+// }
+
 if(isset($_POST['AccountSubmit']))
 {
     $accountPage = $_POST['AccountSubmit'];
-    if($accountPage == 'Register')
+    if($accountPage == 'Register' && (!isset($_SESSION['Current_user_ID']) || $_SESSION['Current_user_ID'] == 0))
     {
         include('pages/Register.php');
     }
-    else if($accountPage == 'Login')
+    else if($accountPage == 'Login' && (!isset($_SESSION['Current_user_ID']) || $_SESSION['Current_user_ID'] == 0))
     {
         include('pages/Login.php');
+    }
+    else if($accountPage == 'LogOut')
+    {
+        $_SESSION['Current_user_ID'] = 0;
+        header("Location: http://localhost/ArtTrade/Src/");
     }
     else
     {
