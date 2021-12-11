@@ -69,7 +69,8 @@
                 $_SESSION['Owned_Art_Amount'] = $row['Owned_Art_Amount'];
 
                 // heading to the main page
-                header("Location: http://localhost/ArtTrade/Src/");
+                //header("Location: http://localhost/ArtTrade/Src/");
+                header("Refresh:0");
             }
             // else password doesnt match
         }

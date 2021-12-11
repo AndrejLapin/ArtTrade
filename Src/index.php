@@ -54,7 +54,8 @@ if(isset($_POST['AccountSubmit']))
         $_SESSION['Currency_Balance'] = 0;
         $_SESSION['Owned_Art_Amount'] = 0;
 
-        header("Location: http://localhost/ArtTrade/Src/");
+        //header("Location: http://localhost/ArtTrade/Src/");
+        header("Refresh:0");
     }
     else
     {
