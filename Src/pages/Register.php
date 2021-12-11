@@ -87,7 +87,7 @@ if(isset($_POST["password_confirm"]))
   Confirm Password: <input type="password" name="password_confirm" value="<?php echo $password_confirm;?>">
   <span class="error"><?php echo $password_confirm_error;?></span>
   <br><br>
-  <input type="submit" name="AccountSubmit" value="Register">  
+  <input type="submit" name="MenuAction" value="Register">  
 </form>
 
 </body>

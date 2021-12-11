@@ -45,7 +45,7 @@ if(isset($_POST["password"]))
   Password: <input type="password" name="password" value="<?php echo $password;?>">
   <span class="error"> <?php echo $password_error;?></span>
   <br><br>
-  <input type="submit" name="AccountSubmit" value="Login">  
+  <input type="submit" name="MenuAction" value="Login">  
 </form>
 
 </body>
