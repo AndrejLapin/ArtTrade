@@ -13,37 +13,28 @@ require("functions.php");
 
 <h1>Main Page</h1>
 <?php
-echo '<p> Current user: '.$_SESSION['Current_user_ID'] .'</p>';
+
+if(!isset($_SESSION['Current_user_ID'])) $_SESSION['Current_user_ID'] = 0;
+echo '<p> Current userId: '.$_SESSION['Current_user_ID'] .'</p>'; // should be hidden from users, now only for debugging
+if($_SESSION['Current_user_ID'] != 0)
+{
+    echo '<p>'.$_SESSION['User_Name'].' balance:'.$_SESSION['Currency_Balance'].' coins, art pecies owned: '.$_SESSION['Owned_Art_Amount'].'</p>';
+}
 ?>
 
 <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method="post">
-<?php if(!isset($_SESSION['Current_user_ID']) || $_SESSION['Current_user_ID'] == 0)
-echo '<input type="submit" value="Register" name="AccountSubmit"> 
-    <input type="submit" value="Login" name="AccountSubmit">'; ?>
-</form>
+<?php 
+    // log in and register buttons get enabled
+    if(!isset($_SESSION['Current_user_ID']) || $_SESSION['Current_user_ID'] == 0)
+    echo '<input type="submit" value="Register" name="AccountSubmit"> 
+    <input type="submit" value="Login" name="AccountSubmit">';
 
-<form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method="post">
-<?php if(isset($_SESSION['Current_user_ID']) && $_SESSION['Current_user_ID'] != 0)
-echo '<input type="submit" value="LogOut" name="AccountSubmit">'; ?>
+    // log out button gets enabled
+    if(isset($_SESSION['Current_user_ID']) && $_SESSION['Current_user_ID'] != 0)
+    echo '<input type="submit" value="LogOut" name="AccountSubmit">'; ?>
 </form>
 
 <?php
-
-// if($_SESSION['Current_user_ID'] == 0)
-// {
-//     echo '
-// <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);? >" method="post">
-//     <input type="submit" value="Register" name="AccountSubmit"> 
-//     <input type="submit" value="Login" name="AccountSubmit">
-// </form>';
-// }
-// else
-// {
-//     echo '
-// <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);? >" method="post">
-//     <input type="submit" value="LogOut" name="AccountSubmit"> 
-// </form>';
-// }
 
 if(isset($_POST['AccountSubmit']))
 {
@@ -59,6 +50,10 @@ if(isset($_POST['AccountSubmit']))
     else if($accountPage == 'LogOut')
     {
         $_SESSION['Current_user_ID'] = 0;
+        $_SESSION['User_Name'] = '';
+        $_SESSION['Currency_Balance'] = 0;
+        $_SESSION['Owned_Art_Amount'] = 0;
+
         header("Location: http://localhost/ArtTrade/Src/");
     }
     else

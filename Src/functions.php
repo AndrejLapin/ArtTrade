@@ -55,14 +55,20 @@
 
     function Login_user($db_connection, $name, $password)
     {
-        $sql_request = 'SELECT Hashed_Password, User_ID FROM user WHERE User_Name = "'.$name.'";';
+        $sql_request = 'SELECT User_ID, User_Name, Hashed_Password, Currency_Balance, Owned_Art_Amount FROM user WHERE User_Name = "'.$name.'";';
         $result = $db_connection->query($sql_request);
         if($result->num_rows > 0)
         {
             $row = $result->fetch_assoc(); // getting first result
             if(hash('sha256', $name.$password) == $row['Hashed_Password'])
             {
+                // user has succesfully logged int
                 $_SESSION['Current_user_ID'] = $row['User_ID'];
+                $_SESSION['User_Name'] = $row['User_Name'];
+                $_SESSION['Currency_Balance'] = $row['Currency_Balance'];
+                $_SESSION['Owned_Art_Amount'] = $row['Owned_Art_Amount'];
+
+                // heading to the main page
                 header("Location: http://localhost/ArtTrade/Src/");
             }
             // else password doesnt match
