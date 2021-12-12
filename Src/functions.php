@@ -1,8 +1,13 @@
 <?php
-    function Connect_to_project_db()
+    function Get_configs()
     {
         $config_file = file_get_contents('Configs/Config.json');
-        $config_object = json_decode($config_file);
+        return json_decode($config_file);
+    }
+
+    function Connect_to_project_db()
+    {
+        $config_object = Get_configs();
 
         $connection = new mysqli(
             $config_object->Server_configs->server_name,
@@ -36,6 +41,13 @@
         //         echo '<p>'.$row['User_Name'].'</p>';
         //     }
         // }
+    }
+
+    function Check_arte_name_exists($db_connection, $name)
+    {
+        $sql_request = 'SELECT Artwork_Name FROM art_pecies WHERE Artwork_Name = "'.$name.'";';
+        $result = $db_connection->query($sql_request);
+        return $result->num_rows > 0; // if rows are returned, that means that name already exists
     }
 
     function Register_new_user($db_connection, $name, $hashed_password, $starting_currency)
