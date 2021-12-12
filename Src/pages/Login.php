@@ -37,15 +37,15 @@ if(isset($_POST["password"]))
 }
 ?>
 
-<h1>Login</h1>
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
-  User Name: <input type="text" name="name" value="<?php echo $name;?>">
+<h1 class="w3-container w3-white w3-padding-16">Login</h1>
+<form class="w3-container w3-padding-32" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
+  User Name: <input class="w3-input" type="text" name="name" value="<?php echo $name;?>">
   <span class="error"> <?php echo $name_error;?></span>
   <br><br>
-  Password: <input type="password" name="password" value="<?php echo $password;?>">
+  Password: <input class="w3-input" type="password" name="password" value="<?php echo $password;?>">
   <span class="error"> <?php echo $password_error;?></span>
   <br><br>
-  <input type="submit" name="MenuAction" value="Login">  
+  <input class="w3-btn w3-blue-grey" type="submit" name="MenuAction" value="Login">  
 </form>
 
 </body>

@@ -8,6 +8,7 @@ require("functions.php");
 <html>
 <head>
 <title>Page Title</title>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
 
@@ -22,19 +23,22 @@ if($_SESSION['Current_user_ID'] != 0)
     echo '<p>'.$_SESSION['User_Name'].' balance:'.$_SESSION['Currency_Balance'].' coins, art pecies owned: '.$_SESSION['Owned_Art_Amount'].'</p>';
 }
 ?>
-
-<form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method="post">
+<div class="w3-bar w3-border w3-light-grey">
+    <div class="w3-bar-item">NFTCAP</div>
+    <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method="post">
 <?php 
     // log in and register buttons get enabled
     if(!isset($_SESSION['Current_user_ID']) || $_SESSION['Current_user_ID'] == 0)
-    echo '  <input type="submit" value="Register" name="MenuAction"> 
-            <input type="submit" value="Login" name="MenuAction">';
+    echo '  <input class="w3-button w3-white w3-right" type="submit" value="Register" name="MenuAction"> 
+            <input class="w3-button w3-white w3-right" type="submit" value="Login" name="MenuAction">';
 
     // log out button gets enabled
     if(isset($_SESSION['Current_user_ID']) && $_SESSION['Current_user_ID'] != 0)
-    echo '  <input type="submit" value="LogOut" name="MenuAction">
-            <input type="submit" value="Upload Art" name="MenuAction">'; ?>
+    echo '  <input class="w3-button w3-white w3-right" type="submit" value="LogOut" name="MenuAction">
+            <input class="w3-button w3-white w3-right" type="submit" value="Upload Art" name="MenuAction">'; ?>
 </form>
+</div>
+
 
 <?php
 
@@ -70,6 +74,10 @@ if(isset($_POST['MenuAction']))
 }
 
 ?>
+<!-- Footer -->
+<footer class="w3-center w3-light-grey w3-topbar w3-padding-32">
+  <p>NFTCAPⒸ2021. Visos teisės saugomos.</p>
+</footer>
 
 </body>
 </html>
