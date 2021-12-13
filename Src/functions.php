@@ -66,26 +66,27 @@
             return "ERROR: No user is currently loggedin";
         }
 
+        $art_id = 1;
+        //get primary key
+        $sql_request = 'SELECT max(Artwork_ID) from art_pecies;';
+        //echo '<p>'.$sql_request.'</p>'; // DEBUG
+        $result = $db_connection->query($sql_request);
+        if($result->num_rows > 0)
+        {
+            $row = $result->fetch_assoc(); // getting first result
+            $art_id = $row[array_key_first($row)] + 1; // getting first element of the array
+            //echo '<p> Artwork_ID = '.$art_id.' </p>'; // DEBUG
+        }
+        //generate new name using target_dir + primary + file extension
+        $target_file = $target_dir.$art_id.'.'.strtolower(pathinfo(basename($file["name"]), PATHINFO_EXTENSION));
+        //echo '<p> Target file = '.$target_file.' </p>'; // DEBUG
+
         //create new DB entry
-        $sql_request = 'INSERT INTO art_pecies (Artwork_Name, Author_Name, Current_Owner_ID, Current_Owner_Name, Price, For_Sale)
-        VALUES ("'.$name.'", "'.$current_user_name.'", '.$current_user_id.', "'.$current_user_name.'", '.$price.', '.$for_sale.')';
+        $sql_request = 'INSERT INTO art_pecies (Name_On_Server, Artwork_Name, Author_Name, Current_Owner_ID, Current_Owner_Name, Price, For_Sale)
+        VALUES ("'.$target_file.'", "'.$name.'", "'.$current_user_name.'", '.$current_user_id.', "'.$current_user_name.'", '.$price.', '.$for_sale.')';
         if($db_connection->query($sql_request) == TRUE)
         {
-            $art_id;
-            $target_file = $target_dir;
-            //get primary key
-            $sql_request = 'SELECT max(Artwork_ID) from art_pecies;';
-            //echo '<p>'.$sql_request.'</p>'; // DEBUG
-            $result = $db_connection->query($sql_request);
-            if($result->num_rows > 0)
-            {
-                $row = $result->fetch_assoc(); // getting first result
-                $art_id = $row[array_key_first($row)]; // getting first element of the array
-                //echo '<p> Artwork_ID = '.$art_id.' </p>'; // DEBUG
-            }
-            //generate new name using target_dir + primary + file extension
-            $target_file = $target_file.$art_id.'.'.strtolower(pathinfo(basename($file["name"]), PATHINFO_EXTENSION));
-            //echo '<p> Target file = '.$target_file.' </p>'; // DEBUG
+            
             $uploadOk = 1;
             // Check if file already exists
             if(file_exists($target_file))
@@ -117,7 +118,7 @@
             if(isset($_SESSION['Current_user_ID']) && $user_id == $_SESSION['Current_user_ID'])
             {
                 $_SESSION['Currency_Balance'] = Get_user_currency($user_id);
-                // refresh balance, maybe use javasript
+                // refresh balance on page, maybe use javasript
             }
             return "Currency has been updated";
         }
@@ -148,7 +149,7 @@
             if(isset($_SESSION['Current_user_ID']) && $user_id == $_SESSION['Current_user_ID'])
             {
                 $_SESSION['Currency_Balance'] = Get_user_currency($user_id);
-                // refresh balance, maybe use javasript
+                // refresh balance on page, maybe use javasript
             }
             return $return_message;
         }

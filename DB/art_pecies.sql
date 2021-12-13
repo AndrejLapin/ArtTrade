@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2021 at 09:58 PM
+-- Generation Time: Dec 13, 2021 at 10:12 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `art_pecies` (
   `Artwork_ID` int(11) NOT NULL,
+  `Name_On_Server` varchar(64) NOT NULL,
   `Artwork_Name` varchar(32) NOT NULL,
   `Author_Name` varchar(32) NOT NULL,
   `Current_Owner_ID` int(11) NOT NULL,
@@ -41,9 +42,12 @@ CREATE TABLE `art_pecies` (
 -- Dumping data for table `art_pecies`
 --
 
-INSERT INTO `art_pecies` (`Artwork_ID`, `Artwork_Name`, `Author_Name`, `Current_Owner_ID`, `Current_Owner_Name`, `Price`, `For_Sale`) VALUES
-(12, 'Character Running', 'Andrej', 4, 'Andrej', 500, 1),
-(13, 'LaserShot', 'Andrej', 4, 'Andrej', 500, 1);
+INSERT INTO `art_pecies` (`Artwork_ID`, `Name_On_Server`, `Artwork_Name`, `Author_Name`, `Current_Owner_ID`, `Current_Owner_Name`, `Price`, `For_Sale`) VALUES
+(12, 'art_pecies/12.png', 'Character Running', 'Andrej', 4, 'Andrej', 500, 1),
+(13, 'art_pecies/13.png', 'LaserShot', 'Andrej', 4, 'Andrej', 500, 1),
+(15, 'art_pecies/14.png', 'Pistol Jump', 'Andrej', 4, 'Andrej', 300, 1),
+(16, 'art_pecies/16.png', 'Bot No Arm', 'Andrej', 4, 'Andrej', 450, 1),
+(17, 'art_pecies/17.png', 'Sword Dash', 'Andrej', 4, 'Andrej', 550, 1);
 
 --
 -- Indexes for dumped tables
@@ -63,7 +67,7 @@ ALTER TABLE `art_pecies`
 -- AUTO_INCREMENT for table `art_pecies`
 --
 ALTER TABLE `art_pecies`
-  MODIFY `Artwork_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `Artwork_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
