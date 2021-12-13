@@ -7,7 +7,9 @@
     },
 
     "File_configs":{
-        "max_upload_size":"10000000",
-        "allowed_formats": ["jpg", "png", "jpeg", "gif"]
+        "target_directory":"art_pecies/",
+        "max_upload_size":10000000,
+        "allowed_formats": ["jpg", "png", "jpeg", "gif"],
+        "upload_currency_reward":500
     }
 }

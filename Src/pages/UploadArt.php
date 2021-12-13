@@ -14,54 +14,65 @@ $art_price = 500;
 $db_connection = Connect_to_project_db();
 $configs = Get_configs();
 
-$target_dir = "art_pecies/";
-$target_file = $target_dir; // file name should be artwork index + extension
-echo '<p>'.basename($_FILES["fileToUpload"]["name"].'</p>';
-$uploadOk = 1; // upload status?
-//$image_file_type = strtolower(pathinfo($target_file, PATHINFO_EXTENSION)); // guess this is getting extension
+$uploadOk = 0; // upload status?
 
 // Check if image file is a actual image or fake image
-if(isset($_POST["submit"])) 
+if(!empty($_FILES["file_to_upload"]["name"])) 
 {
-  $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-  if($check !== false) {
-    echo "<p> File is an image - " . $check["mime"] . ". <p>";
+  //echo '<p>'.basename($_FILES["file_to_upload"]["name"]).'</p>';
+  $check = getimagesize($_FILES["file_to_upload"]["tmp_name"]);
+  $image_file_type = strtolower(pathinfo(basename($_FILES["file_to_upload"]["name"]), PATHINFO_EXTENSION));
+  //echo "<p> File extension = " .$image_file_type. ". <p>";
+  if($check !== false) 
+  {
+    //echo "<p> File is an image - " . $check["mime"] . ". <p>";
     $uploadOk = 1;
-  } else {
-    //echo "<p> File is not an image. <p>";
-    $file_error = 'File is not an image!';
+  } 
+  else 
+  {
+    $file_error = $file_error.'<p> File is not an image! </p>';
+    $uploadOk = 0;
+  }
+
+  // Check file size
+  if ($_FILES["file_to_upload"]["size"] > $configs->File_configs->max_upload_size) 
+  {
+    $file_error = $file_error.'<p> File is too large. Size should be below '.$configs->File_configs->max_upload_size/(1000000).' Megabytes. </p>';
+    $uploadOk = 0;
+  }
+
+  // Allow certain file formats
+  $format_allowed = false;
+  foreach($configs->File_configs->allowed_formats as $format)
+  {
+    if($image_file_type == $format)
+    {
+      $format_allowed = true;
+    }
+  }
+  if(!$format_allowed)
+  {
+    $file_error = $file_error.'<p> Only ';
+
+    foreach($configs->File_configs->allowed_formats as $format)
+    {
+      //echo '<p> Last item = '.end($configs->File_configs->allowed_formats).'<p>'; // DEBUG
+      if(end($configs->File_configs->allowed_formats) == $format)
+      {
+        //current items is last
+        $file_error = $file_error.'and '.$format.' type files are allowed </p>';
+      }
+      else
+      {
+        $file_error = $file_error.$format.', ';
+      }
+    }
     $uploadOk = 0;
   }
 }
-
-// Check if file already exists
-if(file_exists($target_file))
+else
 {
-  echo "<p> ERROR: File already exists <p>";
-  $uploadOk = 0;
-}
-
-// Check file size
-if ($_FILES["fileToUpload"]["size"] > $configs->File_configs->max_upload_size) 
-{
-  $file_error = 'File is too large. Size should be below '.$configs->File_configs->max_upload_size/(1000000).' Megabytes.';
-  $uploadOk = 0;
-}
-
-// Allow certain file formats
-$format_allowed = false;
-foreach($configs->File_configs->allowed_formats as $format)
-{
-  echo '<p>'.$format.'<p>'; // DEBUG
-  if($image_file_type == $format)
-  {
-    $format_allowed = true;
-  }
-}
-if(!$format_allowed)
-{
-  $file_error = 'Only '
-  $uploadOk = 0;
+  $file_error = $file_error.'<p> File has to be selected </p>';
 }
 
 $name_taken = false;
@@ -75,7 +86,7 @@ if(isset($_POST["name"]))
     {
       $name = $_POST["name"];
 
-      if(Check_arte_name_exists($db_connection, $name))
+      if(Check_art_name_exists($db_connection, $name))
       {
         $name_error = "Artwork name already taken";
         $name_taken = true;
@@ -83,26 +94,23 @@ if(isset($_POST["name"]))
     }
 }
 
-// $name_taken = false;
+if(!$name_taken && $uploadOk != 0)
+{
+  // or put Uload_art result string into some other variable and display it somewhere nicely
+  echo '<p>'.Uload_art(  $db_connection, $name,
+              $_FILES["file_to_upload"], $configs->File_configs->target_directory,
+              isset($_POST["for_sale"]), isset($_POST["art_price"]) ? $_POST["art_price"] : $art_price).'</p>';
+}
+else
+{
+  //file isnt uploaded
+}
 
-// $db_connection = Connect_to_project_db();
-
-// if(isset($_POST["name"]))
-// {
-//     if(empty($_POST["name"]))
-//     {
-//         $name_error = "To log in you must enter your User Name";
-//     }
-//     else
-//     {
-//         $name_taken = true;
-//     }
-// }
 ?>
 
 <h1>Upload</h1>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">
-  Select artwork to upload:<input type="file" name="fileToUpload" id="fileToUpload">
+  Select artwork to upload:<input type="file" name="file_to_upload" id="file_to_upload">
   <span class="error"> <?php echo $file_error;?></span>
   <br><br>
   Artwork Name: <input type="text" name="name" value="<?php echo $name;?>">
@@ -111,7 +119,7 @@ if(isset($_POST["name"]))
   For Sale: <input type="checkbox" name="for_sale" value="<?php echo $for_sale;?>" id="for_sale_check" onclick="Enable_price_input_field()" checked>
   Price: <input type="number" name="art_price" value="<?php echo $art_price;?>" min="0" id="price_input_field">
   <br><br>
-  <input type="submit" name="Upload" value="Upload">
+  <input type="submit" name="MenuAction" value="Upload Art">
 </form>
 
 <script>
