@@ -4,5 +4,12 @@
         "username":"root",
         "password":"",
         "dbName":"arttradedb"
+    },
+
+    "File_configs":{
+        "target_directory":"art_pecies/",
+        "max_upload_size":10000000,
+        "allowed_formats": ["jpg", "png", "jpeg", "gif"],
+        "upload_currency_reward":500
     }
 }

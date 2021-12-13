@@ -1,1 +1,1 @@
-put arttradedb folder into C:\xampp\mysql\data directory
+import missing data bases from here
