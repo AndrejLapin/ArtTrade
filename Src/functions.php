@@ -5,7 +5,7 @@
         return json_decode($config_file);
     }
 
-    function Connect_to_project_db()
+    function Connect_to_project_db() // should actually get this only once and save the result somewhere
     {
         $config_object = Get_configs();
 
@@ -206,4 +206,69 @@
         }
         // else couldnt find user by $name
     }
+
+    // searches for images by name
+    function Get_images_by_name($name)
+    {
+        $sql_request = 'SELECT Name_On_Server FROM art_pecies WHERE Artwork_Name like "%'.$name.'%";';
+        return Connect_to_project_db()->query($sql_request);
+    }
+
+    // returns specific image
+    function Get_image_by_id($id)
+    {
+        $sql_request = 'SELECT Name_On_Server FROM art_pecies WHERE Artwork_ID = '.$id.';';
+        $result = Connect_to_project_db()->query($sql_request);
+        if($result->num_rows > 0)
+        {
+            $row = $result->fetch_assoc(); // getting first result
+            return $row['Name_On_Server'];
+        }
+    }
+
+    function Get_images_by_author($author_name)
+    {
+        $sql_request = 'SELECT Name_On_Server FROM art_pecies WHERE Author_Name = "'.$author_name.'";';
+        return Connect_to_project_db()->query($sql_request);
+    }
+
+    function Get_images_by_owner($owner_name)
+    {
+        $sql_request = 'SELECT Name_On_Server FROM art_pecies WHERE Current_Owner_Name = "'.$owner_name.'";';
+        return Connect_to_project_db()->query($sql_request);
+    }
+
+    function Get_images_by_querry($name, $author_name, $owner_name, $price, $for_sale)
+    {
+        if(isset($name) || isset($author_name) || isset($owner_name) || isset($price) || isset($for_sale))
+        {
+            $sql_request = 'SELECT Name_On_Server FROM art_pecies ';
+            if(isset($name))
+            {
+                $sql_request = $sql_request.'WHERE Artwork_Name LIKE "%'.$name.'%"';
+            }
+
+            if(isset($author_name))
+            {
+                $sql_request = $sql_request.'WHERE Author_Name LIKE "%'.$author_name.'%"';
+            }
+
+            if(isset($owner_name))
+            {
+                $sql_request = $sql_request.'WHERE Current_Owner_Name LIKE "%'.$owner_name.'%"';
+            }
+
+            // there should be price range
+            // maybe we should actually be using a couple of methods to build a querry that we actually need??
+
+            if(isset($for_sale))
+            {
+                //echo '<p>'.(bool)($for_sale).'</p>'; // DEBUG
+                $sql_request = $sql_request.'WHERE For_Sale LIKE "%'.$for_sale.'%"';
+            }
+            $sql_request = $sql_request.';';
+            return Connect_to_project_db()->query($sql_request);
+        }
+    }
+
 ?>
