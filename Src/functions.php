@@ -50,7 +50,7 @@
         return $result->num_rows > 0; // if rows are returned, that means that name already exists
     }
 
-    function Uload_art($db_connection, $name, $file, $target_dir, $for_sale, $price)
+    function Upload_art($db_connection, $name, $file, $target_dir, $for_sale, $price)
     {
         $current_user_id = 0;
         $current_user_name = "";
@@ -98,11 +98,24 @@
             {
                 // generate currency for user who uploaded the file
                 Add_currency_to_user($current_user_id, Get_configs()->File_configs->upload_currency_reward);
+                Increment_owned_art_amount($current_user_id);
                 return "Artowrk has been uploaded";
             }
             return "ERROR(3): Failed to upload file"; // error occured while trying to move file to the target directory
         }
         return "ERROR(1): Failed to upload file"; // could not create DB entry        
+    }
+
+    function Increment_owned_art_amount($user_id)
+    {
+        $sql_request = 'UPDATE user SET Owned_Art_Amount = Owned_Art_Amount + '.(1).' WHERE User_ID = '.$user_id.';';
+        if(Connect_to_project_db()->query($sql_request) == TRUE)
+        {
+            $_SESSION['Owned_Art_Amount'] = $_SESSION['Owned_Art_Amount'] + 1;
+            // refresh balance on page, maybe use javasript
+            return 'Art amount has been incremented';
+        }
+        return 'ERROR: could not increment art amount';
     }
 
     function Add_currency_to_user($user_id, $add)
@@ -243,6 +256,7 @@
             if(Change_artwork_owner($row['Artwork_ID'], $_SESSION['Current_user_ID']))
             {
                 Log_transaction($_SESSION['Current_user_ID'], $row['Current_Owner_ID'], $row['Artwork_ID'], $row['Price']);
+                Increment_owned_art_amount($_SESSION['Current_user_ID']);
                 return 'Transaction succeeded';
             }
             else

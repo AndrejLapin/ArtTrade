@@ -24,7 +24,7 @@ $configs = Get_configs();
 $uploadOk = 0; // upload status?
 
 // Check if image file is a actual image or fake image
-if(!empty($_FILES["file_to_upload"]["name"])) 
+if(isset($_POST["MenuAction"]) && !empty($_FILES["file_to_upload"]["name"])) 
 {
   //echo '<p>'.basename($_FILES["file_to_upload"]["name"]).'</p>';
   $check = getimagesize($_FILES["file_to_upload"]["tmp_name"]);
@@ -105,7 +105,7 @@ if(isset($_POST["name"]))
 if(!$name_taken && $uploadOk != 0)
 {
   // or put Uload_art result string into some other variable and display it somewhere nicely
-  echo '<p>'.Uload_art(  $db_connection, $name,
+  echo '<p>'.Upload_art(  $db_connection, $name,
               $_FILES["file_to_upload"], $configs->File_configs->target_directory,
               isset($_POST["for_sale"]), isset($_POST["art_price"]) ? $_POST["art_price"] : $art_price).'</p>';
 }
