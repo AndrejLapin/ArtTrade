@@ -209,9 +209,6 @@
 
     function Get_all_images()
     {
-        // $sql_request = 'SELECT Name_On_Server, Artwork_Name, Author_Name, Current_Owner_ID, Current_Ownerd, Price, For_sale, upload_date
-        //  FROM art_pecies;';
-        // return Connect_to_project_db()->query($sql_request);
         return 'SELECT Name_On_Server, Artwork_Name, Author_Name, Current_Owner_ID, Current_Owner_Name, Price, For_sale, upload_date
         FROM art_pecies;';
     }
@@ -219,9 +216,8 @@
     // searches for images by name
     function Get_images_by_name($name)
     {
-        $sql_request = 'SELECT Name_On_Server, Artwork_Name, Author_Name, Current_Owner_ID, Current_Ownerd, Price, For_sale, upload_date
+        return 'SELECT Name_On_Server, Artwork_Name, Author_Name, Current_Owner_ID, Current_Ownerd, Price, For_sale, upload_date
          FROM art_pecies WHERE Artwork_Name like "%'.$name.'%";';
-        return Connect_to_project_db()->query($sql_request);
     }
 
     // returns specific image

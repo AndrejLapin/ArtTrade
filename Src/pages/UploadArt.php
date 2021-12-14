@@ -88,6 +88,7 @@ if(isset($_POST["name"]))
     if(empty($_POST["name"]))
     {
         $name_error = "Artwork must have a name";
+        $name_taken = true;
     }
     else
     {
