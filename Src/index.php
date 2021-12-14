@@ -97,6 +97,10 @@ if(isset($_POST['MenuAction']))
       $_SESSION['Buying_artwork'] = str_replace('Buy ', '', $menu_action);
       include('pages/Buy.php');
     }
+    else if($menu_action == 'Confirm Purchase')
+    {
+      echo '<p>'.Buy_artwork().'</p>';
+    }
     else
     {
       include('pages/Browse.php');

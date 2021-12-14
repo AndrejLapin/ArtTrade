@@ -168,6 +168,20 @@
         }
     }
 
+    function Change_artwork_owner($artwork_id, $new_owner)
+    {
+        $db_connection = Connect_to_project_db();
+        $sql_request = 'UPDATE art_pecies SET Current_Owner_ID = '.$new_owner.' WHERE Artwork_ID = '.$artwork_id.';';
+        if($db_connection->query($sql_request) == TRUE)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     function Register_new_user($db_connection, $name, $hashed_password, $starting_currency)
     {
         $sql_request = 'INSERT INTO user (User_Name, Hashed_Password, Currency_Balance, Owned_Art_Amount) 
@@ -207,6 +221,40 @@
         // else couldnt find user by $name
     }
 
+    function Buy_artwork()
+    {
+        if(!isset($_SESSION['Current_user_ID']) || $_SESSION['Current_user_ID'] == 0 || !isset($_SESSION['Buying_artwork']))
+        return 'ERROR(1): internal error!'; // session error
+
+        $result = Connect_to_project_db()->query(Get_images_by_name($_SESSION['Buying_artwork']));
+        if($result->num_rows <= 0)
+        return 'ERROR(2): internal error!'; // querry error
+
+        $row = $result->fetch_assoc(); // getting only first result
+
+        if($row['Current_Owner_ID'] == $_SESSION['Current_user_ID'])
+        return 'ERROR(3): internal error!'; // current user cant be buying his own art
+
+        if(Get_user_currency($_SESSION['Current_user_ID']) >= $row['Price'])
+        {
+            // we can buy
+            Subtract_currency_from_user($_SESSION['Current_user_ID'], $row['Price']);
+            Add_currency_to_user($row['Current_Owner_ID'], $row['Price']);
+            if(Change_artwork_owner($row['Artwork_ID'], $_SESSION['Current_user_ID']))
+            {
+                return 'Transaction succeeded';
+            }
+            else
+            {
+                return 'Transaction failed';
+            }
+        }
+        else
+        {
+            return 'Insuficient funds';
+        }
+    }
+
     function Get_all_images()
     {
         return 'SELECT Name_On_Server, Artwork_Name, Author_Name, Current_Owner_ID, Current_Owner_Name, Price, For_sale, upload_date
@@ -216,14 +264,14 @@
     // searches for images by name
     function Get_images_by_name($name)
     {
-        return 'SELECT Name_On_Server, Artwork_Name, Author_Name, Current_Owner_ID, Current_Ownerd, Price, For_sale, upload_date
+        return 'SELECT Artwork_ID, Name_On_Server, Author_Name, Current_Owner_ID, Current_Owner_Name, Price, For_sale, upload_date
          FROM art_pecies WHERE Artwork_Name like "%'.$name.'%";';
     }
 
     // returns specific image
     function Get_image_by_id($id)
     {
-        $sql_request = 'SELECT Name_On_Server, Artwork_Name, Author_Name, Current_Owner_ID, Current_Ownerd, Price, For_sale, upload_date
+        $sql_request = 'SELECT Name_On_Server, Artwork_Name, Author_Name, Current_Owner_ID, Current_Owner_Name, Price, For_sale, upload_date
          FROM art_pecies WHERE Artwork_ID = '.$id.';';
         $result = Connect_to_project_db()->query($sql_request);
         if($result->num_rows > 0)
@@ -235,14 +283,14 @@
 
     function Get_images_by_author($author_name)
     {
-        $sql_request = 'SELECT Name_On_Server, Artwork_Name, Author_Name, Current_Owner_ID, Current_Ownerd, Price, For_sale, upload_date
+        $sql_request = 'SELECT Name_On_Server, Artwork_Name, Author_Name, Current_Owner_ID, Current_Owner_Name, Price, For_sale, upload_date
          FROM art_pecies WHERE Author_Name = "'.$author_name.'";';
         return Connect_to_project_db()->query($sql_request);
     }
 
     function Get_images_by_owner($owner_name)
     {
-        $sql_request = 'SELECT Name_On_Server, Artwork_Name, Author_Name, Current_Owner_ID, Current_Ownerd, Price, For_sale, upload_date
+        $sql_request = 'SELECT Name_On_Server, Artwork_Name, Author_Name, Current_Owner_ID, Current_Owner_Name, Price, For_sale, upload_date
          FROM art_pecies WHERE Current_Owner_Name = "'.$owner_name.'";';
         return Connect_to_project_db()->query($sql_request);
     }
@@ -251,7 +299,7 @@
     {
         if(isset($name) || isset($author_name) || isset($owner_name) || isset($price) || isset($for_sale))
         {
-            $sql_request = 'SELECT Name_On_Server, Artwork_Name, Author_Name, Current_Owner_ID, Current_Ownerd, Price, For_sale, upload_date
+            $sql_request = 'SELECT Name_On_Server, Artwork_Name, Author_Name, Current_Owner_ID, Current_Owner_Name, Price, For_sale, upload_date
              FROM art_pecies ';
             if(isset($name))
             {
