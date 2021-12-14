@@ -35,12 +35,8 @@ if($_SESSION['Current_user_ID'] != 0)
 {//<img src="images/nft1.png" alt="Alps" style="width: auto; height: 300px;">
 //<p>NFT1</p>
   echo '<div class="w3-row w3-padding w3-border w3-pale-blue w3-padding-16 w3-wide w3-large"  style="margin:auto;">
-  <div class="w3-card-3 w3-center w3-quarter w3-white w3-padding-16 w3-border">
-    
-    <div class="w3-container w3-center">
-      
-    </div>
-  </div>';
+    <div class="w3-container w3-center"></div>
+  ';
   echo '<p class="w3-center w3-white w3-padding-small">'.$_SESSION['User_Name'].' balance:'.$_SESSION['Currency_Balance'].' coins, art pecies owned: '.$_SESSION['Owned_Art_Amount'].'</p>
   </div>';
     
@@ -48,10 +44,11 @@ if($_SESSION['Current_user_ID'] != 0)
 }
 ?>
 <div class="w3-bar w3-border w3-light-grey">
-    <div class="w3-bar-item textbold">NFTCAP</div>
+<form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method="post">
+    <input type="submit" name="MenuAction" value="NFTCAP"  class="w3-bar-item textbold">
     <div class="w3-bar-item w3-border-left w3-border-right"><i class="fa fa-search"></i></div>
       <input class="w3-input w3-bar-item" name="search" type="text" placeholder="Search">
-    <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method="post">
+   
 <?php 
     echo ' <input class="w3-button w3-white w3-right" type="submit" value="Browse" name="MenuAction"> ';
     // log in and register buttons get enabled
