@@ -31,17 +31,7 @@ body{
 
 if(!isset($_SESSION['Current_user_ID'])) $_SESSION['Current_user_ID'] = 0;
 echo '<p> Current userId: '.$_SESSION['Current_user_ID'] .'</p>'; // should be hidden from users, now only for debugging
-if($_SESSION['Current_user_ID'] != 0)
-{//<img src="images/nft1.png" alt="Alps" style="width: auto; height: 300px;">
-//<p>NFT1</p>
-  echo '<div class="w3-row w3-padding w3-border w3-pale-blue w3-padding-16 w3-wide w3-large"  style="margin:auto;">
-    <div class="w3-container w3-center"></div>
-  ';
-  echo '<p class="w3-center w3-white w3-padding-small">'.$_SESSION['User_Name'].' balance:'.$_SESSION['Currency_Balance'].' coins, art pecies owned: '.$_SESSION['Owned_Art_Amount'].'</p>
-  </div>';
-    
-    
-}
+
 ?>
 <div class="w3-bar w3-border w3-light-grey">
 <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method="post">
@@ -50,16 +40,27 @@ if($_SESSION['Current_user_ID'] != 0)
       <input class="w3-input w3-bar-item" name="search" type="text" placeholder="Search">
    
 <?php 
-    echo ' <input class="w3-button w3-white w3-right" type="submit" value="Browse" name="MenuAction"> ';
     // log in and register buttons get enabled
     if(!isset($_SESSION['Current_user_ID']) || $_SESSION['Current_user_ID'] == 0)
-    echo '  <input class="w3-button w3-white w3-right" type="submit" value="Register" name="MenuAction"> 
-            <input class="w3-button w3-white w3-right" type="submit" value="Login" name="MenuAction">';
+    echo '  <input class="w3-button w3-white w3-bar-item w3-border-left" type="submit" value="Register" name="MenuAction"> 
+            <input class="w3-button w3-white w3-bar-item w3-border-left w3-border-right" type="submit" value="Login" name="MenuAction">';
 
     // log out button gets enabled
     if(isset($_SESSION['Current_user_ID']) && $_SESSION['Current_user_ID'] != 0)
-    echo '  <input class="w3-button w3-white w3-right" type="submit" value="LogOut" name="MenuAction">
-            <input class="w3-button w3-white w3-right" type="submit" value="Upload Art" name="MenuAction">'; ?>
+    echo '  <input class="w3-button w3-white w3-bar-item w3-border-left" type="submit" value="LogOut" name="MenuAction">
+            <input class="w3-button w3-white w3-bar-item w3-border-left w3-border-right" type="submit" value="Upload Art" name="MenuAction">'; ?>
+<?php
+
+if($_SESSION['Current_user_ID'] != 0)
+{//<img src="images/nft1.png" alt="Alps" style="width: auto; height: 300px;">
+//<p>NFT1</p>
+
+  echo '<div class="w3-bar-item w3-right">'.$_SESSION['User_Name'].' balance:'.$_SESSION['Currency_Balance'].' coins, art pecies owned: '.$_SESSION['Owned_Art_Amount'].'</div>';
+    
+    
+}
+?>            
+
 </form>
 </div>
 
