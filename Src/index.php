@@ -48,7 +48,7 @@ if($_SESSION['Current_user_ID'] != 0)
 }
 ?>
 <div class="w3-bar w3-border w3-light-grey">
-    <div class="w3-bar-item textbold">NFTCAP</div>
+    <button type="button" class="w3-bar-item textbold">NFTCAP</button>
     <div class="w3-bar-item w3-border-left w3-border-right"><i class="fa fa-search"></i></div>
       <input class="w3-input w3-bar-item" name="search" type="text" placeholder="Search">
     <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method="post">
