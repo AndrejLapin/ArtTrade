@@ -36,7 +36,7 @@ echo '<p> Current userId: '.$_SESSION['Current_user_ID'] .'</p>'; // should be h
 <div class="w3-bar w3-border w3-light-grey">
 <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method="post">
     <input type="submit" name="MenuAction" value="NFTCAP"  class="w3-bar-item textbold">
-    <div class="w3-bar-item w3-border-left w3-border-right"><i class="fa fa-search"></i></div>
+    <button type="submit" value="Search" name="MenuAction" class="w3-bar-item w3-border-left w3-border-right w3-hover-blue"><i class="fa fa-search"></i></button>
       <input class="w3-input w3-bar-item" name="search" type="text" placeholder="Search">
    
 <?php 
