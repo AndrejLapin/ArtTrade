@@ -36,12 +36,8 @@ if($_SESSION['Current_user_ID'] != 0)
 {//<img src="images/nft1.png" alt="Alps" style="width: auto; height: 300px;">
 //<p>NFT1</p>
   echo '<div class="w3-row w3-padding w3-border w3-pale-blue w3-padding-16 w3-wide w3-large"  style="margin:auto;">
-  <div class="w3-card-3 w3-center w3-quarter w3-white w3-padding-16 w3-border">
-    
-    <div class="w3-container w3-center">
-      
-    </div>
-  </div>';
+    <div class="w3-container w3-center"></div>
+  ';
   echo '<p class="w3-center w3-white w3-padding-small">'.$_SESSION['User_Name'].' balance:'.$_SESSION['Currency_Balance'].' coins, art pecies owned: '.$_SESSION['Owned_Art_Amount'].'</p>
   </div>';
     
