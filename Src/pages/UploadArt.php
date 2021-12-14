@@ -2,6 +2,13 @@
 <html>
 <head>
 <title>Login</title>
+<style>
+.error{
+ 
+ color:#000!important;
+ background-color:#f44336!important;
+}
+</style>
 </head>
 <body>
 
@@ -25,19 +32,19 @@ if(!empty($_FILES["file_to_upload"]["name"]))
   //echo "<p> File extension = " .$image_file_type. ". <p>";
   if($check !== false) 
   {
-    //echo "<p> File is an image - " . $check["mime"] . ". <p>";
+    //echo "<p> File is an image - " . $check["mime"] . ". <>";
     $uploadOk = 1;
   } 
   else 
   {
-    $file_error = $file_error.'<p> File is not an image! </p>';
+    $file_error = $file_error.'File is not an image!';
     $uploadOk = 0;
   }
 
   // Check file size
   if ($_FILES["file_to_upload"]["size"] > $configs->File_configs->max_upload_size) 
   {
-    $file_error = $file_error.'<p> File is too large. Size should be below '.$configs->File_configs->max_upload_size/(1000000).' Megabytes. </p>';
+    $file_error = $file_error.'File is too large. Size should be below '.$configs->File_configs->max_upload_size/(1000000).' Megabytes. ';
     $uploadOk = 0;
   }
 
@@ -52,7 +59,7 @@ if(!empty($_FILES["file_to_upload"]["name"]))
   }
   if(!$format_allowed)
   {
-    $file_error = $file_error.'<p> Only ';
+    $file_error = $file_error.' Only ';
 
     foreach($configs->File_configs->allowed_formats as $format)
     {
@@ -60,7 +67,7 @@ if(!empty($_FILES["file_to_upload"]["name"]))
       if(end($configs->File_configs->allowed_formats) == $format)
       {
         //current items is last
-        $file_error = $file_error.'and '.$format.' type files are allowed </p>';
+        $file_error = $file_error.'and '.$format.' type files are allowed';
       }
       else
       {
@@ -72,7 +79,7 @@ if(!empty($_FILES["file_to_upload"]["name"]))
 }
 else
 {
-  $file_error = $file_error.'<p> File has to be selected </p>';
+  $file_error = $file_error.'File has to be selected';
 }
 
 $name_taken = false;
@@ -111,9 +118,9 @@ else
 <h1 class="w3-container w3-white w3-padding-16">Upload</h1>
 <form class="w3-container w3-padding-32" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">
   Select artwork to upload:<input type="file" name="file_to_upload" id="file_to_upload">
-  <span class="error"> <?php echo $file_error;?></span>
+  <p class="w3-red"> <?php echo $file_error;?></p>
   Artwork Name: <input type="text" name="name" value="<?php echo $name;?>">
-  <span class="error"> <?php echo $name_error;?></span>
+  <p class="w3-red"> <?php echo $name_error;?></p>
   <br><br>
   For Sale: <input class="w3-check" type="checkbox" name="for_sale" value="<?php echo $for_sale;?>" id="for_sale_check" onclick="Enable_price_input_field()" checked>
   Price: <input type="number" name="art_price" value="<?php echo $art_price;?>" min="0" id="price_input_field">
