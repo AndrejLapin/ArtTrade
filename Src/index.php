@@ -100,7 +100,8 @@ if(isset($_POST['MenuAction']))
     }
     else if($menu_action == 'Confirm Purchase')
     {
-      echo '<p>'.Buy_artwork().'</p>';
+      echo '<div class="w3-row w3-padding w3-border w3-pale-blue w3-padding-16 w3-wide w3-large w3-display-container"  style="height:700px;">';
+      echo '<p class="w3-center w3-white w3-padding-small w3-display-middle">'.Buy_artwork().'</p> </div>';
     }
     else
     {
@@ -113,6 +114,7 @@ else
 }
 
 ?>
+
 
 <!-- NFTs -->
 <!-- <div class="w3-row w3-padding w3-border w3-pale-blue w3-padding-16 w3-wide w3-large"  style="margin:auto;">
