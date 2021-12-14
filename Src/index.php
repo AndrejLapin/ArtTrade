@@ -12,6 +12,7 @@ require("functions.php");
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 
 body{
@@ -48,6 +49,8 @@ if($_SESSION['Current_user_ID'] != 0)
 ?>
 <div class="w3-bar w3-border w3-light-grey">
     <div class="w3-bar-item textbold">NFTCAP</div>
+    <div class="w3-bar-item w3-border-left w3-border-right"><i class="fa fa-search"></i></div>
+      <input class="w3-input w3-bar-item" name="search" type="text" placeholder="Search">
     <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method="post">
 <?php 
     // log in and register buttons get enabled
