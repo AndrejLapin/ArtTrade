@@ -101,7 +101,7 @@ if(isset($_POST['MenuAction']))
 <!-- NFTs -->
 <div class="w3-row w3-padding w3-border w3-pale-blue w3-padding-16 w3-wide w3-large"  style="margin:auto;">
 
-<div class="w3-center textbold w3-padding-32">DIENOS PASIŪLYMAI</div>
+<div class="w3-center textbold w3-padding-32">DAY OFFERS</div>
 
 <div class="w3-card-3 w3-center w3-quarter w3-white w3-padding-16 w3-border">
   <img src="images/nft1.png" alt="Alps" style="width: auto; height: 300px;">
@@ -162,7 +162,7 @@ if(isset($_POST['MenuAction']))
 </div>
 <!-- Footer -->
 <footer class="w3-center w3-light-grey w3-topbar w3-padding-32">
-  <p>NFTCAPⒸ2021. Visos teisės saugomos.</p>
+  <p>NFTCAPⒸ2021. ALL RIGHTS RESERVED.</p>
 </footer>
 
 </body>
