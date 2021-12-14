@@ -207,17 +207,28 @@
         // else couldnt find user by $name
     }
 
+    function Get_all_images()
+    {
+        // $sql_request = 'SELECT Name_On_Server, Artwork_Name, Author_Name, Current_Owner_ID, Current_Ownerd, Price, For_sale, upload_date
+        //  FROM art_pecies;';
+        // return Connect_to_project_db()->query($sql_request);
+        return 'SELECT Name_On_Server, Artwork_Name, Author_Name, Current_Owner_ID, Current_Owner_Name, Price, For_sale, upload_date
+        FROM art_pecies;';
+    }
+
     // searches for images by name
     function Get_images_by_name($name)
     {
-        $sql_request = 'SELECT Name_On_Server FROM art_pecies WHERE Artwork_Name like "%'.$name.'%";';
+        $sql_request = 'SELECT Name_On_Server, Artwork_Name, Author_Name, Current_Owner_ID, Current_Ownerd, Price, For_sale, upload_date
+         FROM art_pecies WHERE Artwork_Name like "%'.$name.'%";';
         return Connect_to_project_db()->query($sql_request);
     }
 
     // returns specific image
     function Get_image_by_id($id)
     {
-        $sql_request = 'SELECT Name_On_Server FROM art_pecies WHERE Artwork_ID = '.$id.';';
+        $sql_request = 'SELECT Name_On_Server, Artwork_Name, Author_Name, Current_Owner_ID, Current_Ownerd, Price, For_sale, upload_date
+         FROM art_pecies WHERE Artwork_ID = '.$id.';';
         $result = Connect_to_project_db()->query($sql_request);
         if($result->num_rows > 0)
         {
@@ -228,13 +239,15 @@
 
     function Get_images_by_author($author_name)
     {
-        $sql_request = 'SELECT Name_On_Server FROM art_pecies WHERE Author_Name = "'.$author_name.'";';
+        $sql_request = 'SELECT Name_On_Server, Artwork_Name, Author_Name, Current_Owner_ID, Current_Ownerd, Price, For_sale, upload_date
+         FROM art_pecies WHERE Author_Name = "'.$author_name.'";';
         return Connect_to_project_db()->query($sql_request);
     }
 
     function Get_images_by_owner($owner_name)
     {
-        $sql_request = 'SELECT Name_On_Server FROM art_pecies WHERE Current_Owner_Name = "'.$owner_name.'";';
+        $sql_request = 'SELECT Name_On_Server, Artwork_Name, Author_Name, Current_Owner_ID, Current_Ownerd, Price, For_sale, upload_date
+         FROM art_pecies WHERE Current_Owner_Name = "'.$owner_name.'";';
         return Connect_to_project_db()->query($sql_request);
     }
 
@@ -242,7 +255,8 @@
     {
         if(isset($name) || isset($author_name) || isset($owner_name) || isset($price) || isset($for_sale))
         {
-            $sql_request = 'SELECT Name_On_Server FROM art_pecies ';
+            $sql_request = 'SELECT Name_On_Server, Artwork_Name, Author_Name, Current_Owner_ID, Current_Ownerd, Price, For_sale, upload_date
+             FROM art_pecies ';
             if(isset($name))
             {
                 $sql_request = $sql_request.'WHERE Artwork_Name LIKE "%'.$name.'%"';
