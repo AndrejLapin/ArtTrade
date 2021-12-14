@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2021 at 09:53 PM
+-- Generation Time: Dec 14, 2021 at 10:37 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -46,12 +46,15 @@ CREATE TABLE `art_pecies` (
 INSERT INTO `art_pecies` (`Artwork_ID`, `Name_On_Server`, `Artwork_Name`, `Author_Name`, `Current_Owner_ID`, `Current_Owner_Name`, `Price`, `For_Sale`, `upload_date`) VALUES
 (12, 'art_pecies/12.png', 'Character Running', 'Andrej', 11, 'Andrej', 500, 1, '2021-12-14 20:49:11'),
 (13, 'art_pecies/13.png', 'LaserShot', 'Andrej', 4, 'Andrej', 500, 1, '2021-12-14 17:51:06'),
-(15, 'art_pecies/14.png', 'Pistol Jump', 'Andrej', 11, 'Andrej', 300, 1, '2021-12-14 20:50:02'),
+(15, 'art_pecies/14.png', 'Pistol Jump', 'Andrej', 4, 'Andrej', 300, 1, '2021-12-14 20:55:08'),
 (16, 'art_pecies/16.png', 'Bot No Arm', 'Andrej', 11, 'Andrej', 450, 1, '2021-12-14 20:48:33'),
 (17, 'art_pecies/17.png', 'Sword Dash', 'Andrej', 11, 'Andrej', 550, 1, '2021-12-14 20:52:57'),
-(18, 'art_pecies/18.png', 'mano', 'Jonas', 10, 'Jonas', 500, 1, '2021-12-14 20:45:28'),
+(18, 'art_pecies/18.png', 'mano', 'Jonas', 4, 'Jonas', 500, 1, '2021-12-14 21:06:45'),
 (19, 'art_pecies/19.png', 'man', 'Jonas', 8, 'Jonas', 500, 1, '2021-12-14 17:51:06'),
-(20, 'art_pecies/20.png', 'manaaaa', 'Jonas', 11, 'Jonas', 500, 1, '2021-12-14 20:52:00');
+(20, 'art_pecies/20.png', 'manaaaa', 'Jonas', 4, 'Jonas', 500, 1, '2021-12-14 21:08:23'),
+(27, 'art_pecies/21.png', 'BAWS', 'Andrej', 4, 'Andrej', 1000, 1, '2021-12-14 21:10:49'),
+(28, 'art_pecies/28.png', 'Alibaba Intelligence', 'Andrej', 4, 'Andrej', 700, 1, '2021-12-14 21:18:21'),
+(29, 'art_pecies/29.png', 'HamdCmpoter', 'Andrej', 4, 'Andrej', 650, 1, '2021-12-14 21:22:44');
 
 --
 -- Indexes for dumped tables
@@ -71,7 +74,7 @@ ALTER TABLE `art_pecies`
 -- AUTO_INCREMENT for table `art_pecies`
 --
 ALTER TABLE `art_pecies`
-  MODIFY `Artwork_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `Artwork_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

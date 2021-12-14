@@ -290,7 +290,7 @@
     // searches for images by name
     function Get_images_by_name($name)
     {
-        return 'SELECT Artwork_ID, Name_On_Server, Author_Name, Current_Owner_ID, Current_Owner_Name, Price, For_sale, upload_date
+        return 'SELECT Artwork_ID, Artwork_Name, Name_On_Server, Author_Name, Current_Owner_ID, Current_Owner_Name, Price, For_sale, upload_date
          FROM art_pecies WHERE Artwork_Name like "%'.$name.'%";';
     }
 

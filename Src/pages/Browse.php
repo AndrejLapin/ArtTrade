@@ -4,7 +4,16 @@
 
     <?php
         //echo '<p>'.Get_all_images().'</p>';
-        $result = Connect_to_project_db()->query(Get_all_images());
+        $result;
+        if(isset($_SESSION['Search']) && !empty($_SESSION['Search']))
+        {
+            $result = Connect_to_project_db()->query(Get_images_by_name($_SESSION['Search']));
+            $_SESSION['Search'] = "";
+        }
+        else
+        {
+            $result = Connect_to_project_db()->query(Get_all_images());
+        }
         if($result->num_rows > 0)
         {
             while($row = $result->fetch_assoc())

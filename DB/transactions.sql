@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2021 at 09:53 PM
+-- Generation Time: Dec 14, 2021 at 10:37 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -43,7 +43,10 @@ CREATE TABLE `transactions` (
 INSERT INTO `transactions` (`Transaction_ID`, `Buyer_ID`, `Seller_ID`, `Product_ID`, `Transaction_Amount`, `Time_Stamp`) VALUES
 (1, 11, 10, 15, 300, '0000-00-00 00:00:00'),
 (2, 11, 8, 20, 500, '2021-12-14 20:52:00'),
-(3, 11, 10, 17, 550, '2021-12-14 20:52:57');
+(3, 11, 10, 17, 550, '2021-12-14 20:52:57'),
+(4, 4, 11, 15, 300, '2021-12-14 20:55:08'),
+(5, 4, 10, 18, 500, '2021-12-14 21:06:45'),
+(6, 4, 11, 20, 500, '2021-12-14 21:08:23');
 
 --
 -- Indexes for dumped tables
@@ -63,7 +66,7 @@ ALTER TABLE `transactions`
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `Transaction_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Transaction_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

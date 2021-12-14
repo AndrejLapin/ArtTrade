@@ -103,6 +103,16 @@ if(isset($_POST['MenuAction']))
       echo '<div class="w3-row w3-padding w3-border w3-pale-blue w3-padding-16 w3-wide w3-large w3-display-container"  style="height:700px;">';
       echo '<p class="w3-center w3-white w3-padding-small w3-display-middle">'.Buy_artwork().'</p> </div>';
     }
+    else if($menu_action == 'Search' && isset($_POST['search']) && !empty($_POST['search']))
+    {
+      $_SESSION['Search'] = $_POST['search'];
+      include('pages/Browse.php');
+    }
+    else if(isset($_POST['search']) && !empty($_POST['search']))
+    {
+      $_SESSION['Search'] = $_POST['search'];
+      include('pages/Browse.php');
+    }
     else
     {
       include('pages/Browse.php');
