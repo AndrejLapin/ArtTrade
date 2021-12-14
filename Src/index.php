@@ -49,10 +49,11 @@ if($_SESSION['Current_user_ID'] != 0)
 }
 ?>
 <div class="w3-bar w3-border w3-light-grey">
-    <button type="button" class="w3-bar-item textbold">NFTCAP</button>
+<form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method="post">
+    <input type="submit" name="MenuAction" value="NFTCAP"  class="w3-bar-item textbold">
     <div class="w3-bar-item w3-border-left w3-border-right"><i class="fa fa-search"></i></div>
       <input class="w3-input w3-bar-item" name="search" type="text" placeholder="Search">
-    <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method="post">
+   
 <?php 
     echo ' <input class="w3-button w3-white w3-right" type="submit" value="Browse" name="MenuAction"> ';
     // log in and register buttons get enabled
