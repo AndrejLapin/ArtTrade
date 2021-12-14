@@ -30,7 +30,7 @@ body{
 <?php
 
 if(!isset($_SESSION['Current_user_ID'])) $_SESSION['Current_user_ID'] = 0;
-echo '<p> Current userId: '.$_SESSION['Current_user_ID'] .'</p>'; // should be hidden from users, now only for debugging
+//echo '<p> Current userId: '.$_SESSION['Current_user_ID'] .'</p>'; // should be hidden from users, now only for debugging
 
 ?>
 <div class="w3-bar w3-border w3-light-grey">
