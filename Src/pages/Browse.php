@@ -16,7 +16,9 @@
                 if(isset($_SESSION['Current_user_ID']) && $_SESSION['Current_user_ID'] != 0)
                 {
                     $buttonValue = ($_SESSION['Current_user_ID'] == $row['Current_Owner_ID']) || !$row['For_sale']  ? 'Check' : 'Buy';
+                    echo '<form action='.htmlspecialchars($_SERVER["PHP_SELF"]).' method="post">';
                     echo '<input class="w3-button w3-white w3-center" type="submit" value="'.$buttonValue.' '.$row["Artwork_Name"].'" name="MenuAction">';
+                    echo '</form>';
                 }
                 echo '</div>';
                 echo '</div>';

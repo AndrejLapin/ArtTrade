@@ -27,7 +27,6 @@ body{
 <body>
 
 <!--<h1>Main Page</h1>-->
-<p>Menu</p>
 <?php
 
 if(!isset($_SESSION['Current_user_ID'])) $_SESSION['Current_user_ID'] = 0;
@@ -73,33 +72,33 @@ if($_SESSION['Current_user_ID'] != 0)
 if(isset($_POST['MenuAction']))
 {
     $menu_action = $_POST['MenuAction'];
-    echo '<p>'.$menu_action.'</p>';
     //echo '<p>'.strpos($menu_action, 'Buy ').'</p>';
     if($menu_action == 'Register' && (!isset($_SESSION['Current_user_ID']) || $_SESSION['Current_user_ID'] == 0))
     {
-        include('pages/Register.php');
+      include('pages/Register.php');
     }
     else if($menu_action == 'Login' && (!isset($_SESSION['Current_user_ID']) || $_SESSION['Current_user_ID'] == 0))
     {
-        include('pages/Login.php');
+      include('pages/Login.php');
     }
     else if($menu_action == 'LogOut')
     {
-        $_SESSION['Current_user_ID'] = 0;
-        $_SESSION['User_Name'] = '';
-        $_SESSION['Currency_Balance'] = 0;
-        $_SESSION['Owned_Art_Amount'] = 0;
+      $_SESSION['Current_user_ID'] = 0;
+      $_SESSION['User_Name'] = '';
+      $_SESSION['Currency_Balance'] = 0;
+      $_SESSION['Owned_Art_Amount'] = 0;
 
-        //header("Location: http://localhost/ArtTrade/Src/");
-        header("Refresh:0");
+      //header("Location: http://localhost/ArtTrade/Src/");
+      header("Refresh:0");
     }
     else if($menu_action == 'Upload Art' && isset($_SESSION['Current_user_ID']) && $_SESSION['Current_user_ID'] != 0)
     {
-        include('pages/UploadArt.php');
+      include('pages/UploadArt.php');
     }
-    else if(strpos($menu_action, 'Buy '))
+    else if(strpos($menu_action, 'Buy ') === 0)
     {
-
+      $_SESSION['Buying_artwork'] = str_replace('Buy ', '', $menu_action);
+      include('pages/Buy.php');
     }
     else
     {
