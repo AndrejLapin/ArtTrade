@@ -43,7 +43,7 @@ if(isset($_POST["password"]))
   Username: <input class="w3-input" type="text" name="name" value="<?php echo $name;?>">
   <span class="error"> <?php echo $name_error;?></span>
 =======
-  User Name: <input class="w3-input" type="text" name="name" value="<?php echo $name;?>">
+  Username: <input class="w3-input" type="text" name="name" value="<?php echo $name;?>">
   <p class="w3-red"> <?php echo $name_error;?></p>
 >>>>>>> 1dd9c739e63a9f3da240bfff8532c04854ea257d
   <br><br>
