@@ -242,6 +242,7 @@
             Add_currency_to_user($row['Current_Owner_ID'], $row['Price']);
             if(Change_artwork_owner($row['Artwork_ID'], $_SESSION['Current_user_ID']))
             {
+                Log_transaction($_SESSION['Current_user_ID'], $row['Current_Owner_ID'], $row['Artwork_ID'], $row['Price']);
                 return 'Transaction succeeded';
             }
             else
@@ -253,6 +254,17 @@
         {
             return 'Insuficient funds';
         }
+    }
+
+    function Log_transaction($buyer_id, $seller_id, $product_id, $transaction_amount)
+    {
+        $sql_request = 'INSERT INTO transactions (Buyer_ID, Seller_ID, Product_ID, Transaction_Amount) 
+        VALUES ('.$buyer_id.', '.$seller_id.', '.$product_id.', '.$transaction_amount.');';
+        if(Connect_to_project_db()->query($sql_request) == TRUE)
+        {
+            return 'Transaction logged';
+        }
+        return 'Could not log transaction';
     }
 
     function Get_all_images()

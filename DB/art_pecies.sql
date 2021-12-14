@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2021 at 10:12 PM
+-- Generation Time: Dec 14, 2021 at 09:53 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -35,19 +35,23 @@ CREATE TABLE `art_pecies` (
   `Current_Owner_ID` int(11) NOT NULL,
   `Current_Owner_Name` varchar(32) NOT NULL,
   `Price` int(11) NOT NULL,
-  `For_Sale` tinyint(1) NOT NULL
+  `For_Sale` tinyint(1) NOT NULL,
+  `upload_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `art_pecies`
 --
 
-INSERT INTO `art_pecies` (`Artwork_ID`, `Name_On_Server`, `Artwork_Name`, `Author_Name`, `Current_Owner_ID`, `Current_Owner_Name`, `Price`, `For_Sale`) VALUES
-(12, 'art_pecies/12.png', 'Character Running', 'Andrej', 4, 'Andrej', 500, 1),
-(13, 'art_pecies/13.png', 'LaserShot', 'Andrej', 4, 'Andrej', 500, 1),
-(15, 'art_pecies/14.png', 'Pistol Jump', 'Andrej', 4, 'Andrej', 300, 1),
-(16, 'art_pecies/16.png', 'Bot No Arm', 'Andrej', 4, 'Andrej', 450, 1),
-(17, 'art_pecies/17.png', 'Sword Dash', 'Andrej', 4, 'Andrej', 550, 1);
+INSERT INTO `art_pecies` (`Artwork_ID`, `Name_On_Server`, `Artwork_Name`, `Author_Name`, `Current_Owner_ID`, `Current_Owner_Name`, `Price`, `For_Sale`, `upload_date`) VALUES
+(12, 'art_pecies/12.png', 'Character Running', 'Andrej', 11, 'Andrej', 500, 1, '2021-12-14 20:49:11'),
+(13, 'art_pecies/13.png', 'LaserShot', 'Andrej', 4, 'Andrej', 500, 1, '2021-12-14 17:51:06'),
+(15, 'art_pecies/14.png', 'Pistol Jump', 'Andrej', 11, 'Andrej', 300, 1, '2021-12-14 20:50:02'),
+(16, 'art_pecies/16.png', 'Bot No Arm', 'Andrej', 11, 'Andrej', 450, 1, '2021-12-14 20:48:33'),
+(17, 'art_pecies/17.png', 'Sword Dash', 'Andrej', 11, 'Andrej', 550, 1, '2021-12-14 20:52:57'),
+(18, 'art_pecies/18.png', 'mano', 'Jonas', 10, 'Jonas', 500, 1, '2021-12-14 20:45:28'),
+(19, 'art_pecies/19.png', 'man', 'Jonas', 8, 'Jonas', 500, 1, '2021-12-14 17:51:06'),
+(20, 'art_pecies/20.png', 'manaaaa', 'Jonas', 11, 'Jonas', 500, 1, '2021-12-14 20:52:00');
 
 --
 -- Indexes for dumped tables
@@ -67,7 +71,7 @@ ALTER TABLE `art_pecies`
 -- AUTO_INCREMENT for table `art_pecies`
 --
 ALTER TABLE `art_pecies`
-  MODIFY `Artwork_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `Artwork_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
